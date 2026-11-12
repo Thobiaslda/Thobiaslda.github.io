@@ -157,3 +157,5 @@ footer { border-top: 1px solid var(--rule); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 .advocacy-sample { width: min(100%, 20rem); margin-inline: auto; }
+
+.advocacy-sample video { display: block; width: 100%; height: auto; background: #141424; }
