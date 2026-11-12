@@ -181,3 +181,11 @@ footer { border-top: 1px solid var(--rule); }
  .case-media .advocacy-sample { width: min(100%, 18rem); }
 }
 @media (max-width: 400px) { .case-media .campaign-gallery { grid-template-columns: 1fr; } }
+
+/* Flow cards independently, without equal-height rows. */
+.cases { display: block; columns: 2; column-gap: 1.25rem; }
+.case, .case-with-media { display: flex; flex-direction: column; width: 100%; break-inside: avoid; margin: 0 0 1.25rem; gap: 0; }
+.case-copy, .case-media { width: 100%; }
+.case-media { margin-top: 1.25rem; }
+.case-media .advocacy-sample { width: min(100%, 18rem); }
+@media (max-width: 760px) { .cases { columns: 1; } }
