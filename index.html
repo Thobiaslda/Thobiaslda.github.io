@@ -1,1088 +1,264 @@
-<title>Thobias Almeida</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap">
-
-<style>
-/* ─── TOKENS ─────────────────────────────────────────────── */
-:root {
-  --ink:      #0C1A26;
-  --ink2:     #1B2D3E;
-  --ink3:     #253D52;
-  --amber:    #B8842A;
-  --amber2:   #D49E3A;
-  --ivory:    #F0EBE1;
-  --dust:     #EEEAE3;
-  --dust2:    #E3DDD5;
-  --body-bg:  #F5F2EC;
-  --text:     #1A2A38;
-  --muted:    #5E7487;
-  --line:     rgba(184,132,42,0.22);
-  --strong-text: var(--ink);
-
-  --display: 'Cormorant Garamond', Georgia, serif;
-  --sans:    'DM Sans', system-ui, sans-serif;
-  --mono:    'DM Mono', 'Courier New', monospace;
-  --r:       8px;
-  --ease:    cubic-bezier(.4,0,.2,1);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --body-bg:    #0A1620;
-    --text:       #D8D0C8;
-    --muted:      #7A9AAF;
-    --dust:       #111E2A;
-    --dust2:      #162030;
-    --line:       rgba(184,132,42,0.18);
-    --strong-text:#E8E2DA;
-  }
-}
-:root[data-theme="dark"] {
-  --body-bg:    #0A1620;
-  --text:       #D8D0C8;
-  --muted:      #7A9AAF;
-  --dust:       #111E2A;
-  --dust2:      #162030;
-  --line:       rgba(184,132,42,0.18);
-  --strong-text:#E8E2DA;
-}
-
-/* ─── RESET ──────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--sans);
-  background: var(--body-bg);
-  color: var(--text);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-a { text-decoration: none; color: inherit; }
-img { display: block; max-width: 100%; }
-
-/* ─── NAV ────────────────────────────────────────────────── */
-.nav {
-  position: fixed; top: env(safe-area-inset-top,0); left: 0; right: 0; z-index: 900;
-  height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 clamp(1.25rem, 5vw, 3.5rem);
-  background: rgba(12,26,38,0.9);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line);
-}
-.nav-brand {
-  font-family: var(--display);
-  font-size: 1.15rem; font-weight: 600;
-  color: var(--ivory);
-  letter-spacing: 0.03em;
-}
-.nav-links {
-  display: flex; gap: 2rem; list-style: none;
-}
-.nav-links a {
-  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
-  text-transform: uppercase; color: rgba(240,235,225,0.6);
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--amber2); }
-
-/* ─── HERO ───────────────────────────────────────────────── */
-.hero {
-  min-height: 100svh;
-  background: var(--ink);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 100px clamp(1.25rem,5vw,3.5rem) clamp(3rem,6vw,5rem);
-  position: relative;
-  overflow: hidden;
-}
-.hero-ambient {
-  position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(ellipse 55% 45% at 72% 38%, rgba(184,132,42,0.09) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 60% at 15% 70%, rgba(30,75,120,0.15) 0%, transparent 60%);
-}
-.hero-rule {
-  width: 40px; height: 2px;
-  background: var(--amber);
-  margin-bottom: 1.5rem;
-}
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.72rem; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--amber);
-  margin-bottom: 1.75rem;
-}
-.hero-h1 {
-  font-family: var(--display);
-  font-size: clamp(3.5rem, 8.5vw, 7.5rem);
-  font-weight: 300;
-  color: var(--ivory);
-  line-height: 0.96;
-  letter-spacing: -0.01em;
-  margin-bottom: 2.5rem;
-  max-width: 18ch;
-}
-.hero-h1 em {
-  font-style: italic; font-weight: 300;
-  color: var(--amber2);
-}
-.hero-bottom {
-  display: grid; grid-template-columns: 1fr auto;
-  gap: 3rem; align-items: end;
-}
-.hero-desc {
-  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-  color: rgba(240,235,225,0.6);
-  line-height: 1.8; max-width: 44ch;
-}
-.hero-portrait-col { text-align: right; }
-.hero-portrait {
-  width: clamp(140px, 18vw, 220px);
-  aspect-ratio: 3/4;
-  object-fit: cover; object-position: center top;
-  border-radius: 2px;
-  border: 1px solid rgba(184,132,42,0.3);
-  filter: grayscale(20%) contrast(1.05);
-  display: inline-block;
-}
-.hero-ctas {
-  display: flex; gap: 1rem; flex-wrap: wrap;
-  margin-top: 2rem;
-}
-.btn-a {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.7rem 1.5rem;
-  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: var(--r);
-  transition: all 0.22s var(--ease);
-}
-.btn-amber { background: var(--amber); color: var(--ink); }
-.btn-amber:hover { background: var(--amber2); transform: translateY(-2px); }
-.btn-ghost { border: 1px solid rgba(240,235,225,0.25); color: rgba(240,235,225,0.75); }
-.btn-ghost:hover { border-color: var(--amber); color: var(--amber2); transform: translateY(-2px); }
-.hero-scroll {
-  margin-top: 4rem;
-  display: flex; align-items: center; gap: 0.75rem;
-  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.18em;
-  text-transform: uppercase; color: rgba(240,235,225,0.3);
-}
-.scroll-line { flex: 1; max-width: 60px; height: 1px; background: rgba(240,235,225,0.2); }
-
-/* ─── METRICS STRIP ──────────────────────────────────────── */
-.metrics-strip {
-  background: var(--amber);
-  padding: 2.5rem clamp(1.25rem,5vw,3.5rem);
-}
-.metrics-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(4,1fr);
-  gap: 0;
-}
-.met {
-  padding: 0.5rem 2rem 0.5rem 0;
-  border-right: 1px solid rgba(12,26,38,0.2);
-}
-.met:last-child { border-right: none; padding-right: 0; padding-left: 2rem; }
-.met:not(:first-child):not(:last-child) { padding-left: 2rem; }
-.met-num {
-  font-family: var(--display);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 600;
-  color: var(--ink);
-  line-height: 1;
-  margin-bottom: 0.25rem;
-  font-variant-numeric: tabular-nums;
-}
-.met-label {
-  font-family: var(--mono);
-  font-size: 0.65rem; letter-spacing: 0.14em;
-  text-transform: uppercase; color: rgba(12,26,38,0.6);
-}
-
-/* ─── SECTIONS ───────────────────────────────────────────── */
-.wrap {
-  padding: 5.5rem clamp(1.25rem,5vw,3.5rem);
-}
-.inner { max-width: 1100px; margin: 0 auto; }
-.s-label {
-  font-family: var(--mono);
-  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--amber); margin-bottom: 0.875rem; display: block;
-}
-.s-heading {
-  font-family: var(--display);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 300;
-  color: var(--text);
-  line-height: 1.1;
-  margin-bottom: 1.25rem;
-}
-.s-heading em { font-style: italic; color: var(--amber); }
-.s-intro {
-  font-size: 1rem; color: var(--muted);
-  max-width: 52ch; line-height: 1.8;
-  margin-bottom: 3rem;
-}
-
-/* ─── ABOUT ──────────────────────────────────────────────── */
-.about-bg { background: var(--dust); }
-.about-grid {
-  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem;
-}
-.about-text p {
-  font-size: 1rem; color: var(--text);
-  line-height: 1.85; margin-bottom: 1.25rem;
-}
-.about-text strong { color: var(--strong-text); font-weight: 600; }
-.cred-stack { display: flex; flex-direction: column; gap: 0.875rem; }
-.cred {
-  padding: 1rem 1.25rem;
-  border-left: 2px solid var(--amber);
-  background: var(--body-bg);
-  border-radius: 0 var(--r) var(--r) 0;
-}
-.cred h4 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
-.cred p { font-size: 0.8rem; color: var(--muted); margin: 0; }
-
-/* ─── PROJECTS ───────────────────────────────────────────── */
-.projects-bg { background: var(--body-bg); }
-.proj-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-}
-.proj-card {
-  border-radius: 10px; overflow: hidden;
-  border: 1px solid var(--dust2);
-  background: var(--body-bg);
-  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
-}
-.proj-card:hover {
-  box-shadow: 0 20px 60px rgba(12,26,38,0.1);
-  transform: translateY(-4px);
-}
-.proj-card.hero-card {
-  grid-column: span 2;
-  display: grid; grid-template-columns: 1fr 1fr;
-}
-.proj-visual {
-  height: 200px; position: relative; overflow: hidden;
-}
-.proj-card.hero-card .proj-visual { height: 100%; min-height: 300px; }
-.pv-bg {
-  position: absolute; inset: 0;
-  transition: transform 0.5s var(--ease);
-}
-.proj-card:hover .pv-bg { transform: scale(1.04); }
-.pv-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(12,26,38,0.8) 0%, rgba(12,26,38,0.15) 55%, transparent 100%);
-}
-.proj-tags {
-  position: absolute; top: 1rem; left: 1rem;
-  display: flex; gap: 0.35rem; flex-wrap: wrap;
-}
-.ptag {
-  font-family: var(--mono);
-  font-size: 0.63rem; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 0.2rem 0.6rem;
-  border-radius: 100px;
-  background: var(--amber); color: var(--ink);
-}
-.ptag.ghost {
-  background: rgba(240,235,225,0.12); color: rgba(240,235,225,0.8);
-  backdrop-filter: blur(6px);
-}
-.proj-kpi {
-  position: absolute; bottom: 1rem; right: 1rem;
-  background: var(--ivory); border-radius: 6px;
-  padding: 0.45rem 0.75rem; text-align: center;
-  min-width: 72px;
-}
-.proj-kpi strong {
-  display: block; font-family: var(--display); font-weight: 600;
-  font-size: 1.15rem; color: var(--ink); line-height: 1;
-}
-.proj-kpi span { font-family: var(--mono); font-size: 0.6rem; color: var(--muted); }
-/* centre stat for hero visual panel */
-.proj-visual-stat {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: 2rem;
-  pointer-events: none;
-}
-.proj-visual-stat .vs-num {
-  font-family: var(--display); font-weight: 300;
-  font-size: clamp(3.5rem, 8vw, 6rem);
-  color: var(--ivory); line-height: 1;
-  opacity: 0.92; letter-spacing: -0.02em;
-}
-.proj-visual-stat .vs-label {
-  font-family: var(--mono); font-size: 0.7rem;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(240,235,225,0.55); margin-top: 0.5rem;
-}
-.proj-visual-stat .vs-divider {
-  width: 32px; height: 1px;
-  background: var(--amber); margin: 1rem auto;
-  opacity: 0.7;
-}
-/* smaller stat for regular cards */
-.proj-visual-mini {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: 1.25rem;
-  pointer-events: none;
-}
-.proj-visual-mini .vm-num {
-  font-family: var(--display); font-weight: 300;
-  font-size: clamp(2.5rem, 5vw, 3.75rem);
-  color: var(--ivory); line-height: 1;
-  opacity: 0.88;
-}
-.proj-visual-mini .vm-label {
-  font-family: var(--mono); font-size: 0.62rem;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(240,235,225,0.5); margin-top: 0.4rem;
-}
-.proj-body { padding: 1.5rem; }
-.proj-card.hero-card .proj-body {
-  padding: 2.25rem; display: flex; flex-direction: column; justify-content: center;
-}
-.proj-title {
-  font-family: var(--display);
-  font-size: 1.3rem; font-weight: 600;
-  color: var(--text);
-  line-height: 1.25; margin-bottom: 0.625rem;
-}
-.proj-card.hero-card .proj-title { font-size: 1.7rem; margin-bottom: 0.875rem; }
-.proj-desc {
-  font-size: 0.875rem; color: var(--muted);
-  line-height: 1.7; margin-bottom: 1.1rem;
-}
-.proj-card.hero-card .proj-desc { font-size: 0.95rem; margin-bottom: 1.5rem; }
-.proj-metrics {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 0.5rem; margin-bottom: 1.25rem;
-}
-.pm {
-  background: var(--dust);
-  border-radius: 6px; padding: 0.625rem 0.5rem;
-  text-align: center;
-}
-.pm strong {
-  display: block; font-family: var(--display); font-weight: 600;
-  font-size: 1.1rem; color: var(--text); line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-  margin-bottom: 0.3rem;
-}
-.pm span { font-family: var(--sans); font-size: 0.72rem; color: var(--muted); line-height: 1.35; }
-.proj-link {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--amber);
-  transition: gap 0.18s;
-}
-.proj-link:hover { gap: 0.55rem; }
-
-/* ─── VISUAL PALETTES FOR PROJECTS ──────────────────────── */
-.pv-rhi    { background: linear-gradient(150deg, #081420 0%, #0d2236 40%, #1a3850 100%); }
-.pv-csul   { background: linear-gradient(150deg, #0e1f12 0%, #193a1e 50%, #2a5e30 100%); }
-.pv-tec    { background: linear-gradient(150deg, #1a1006 0%, #3a2608 50%, #8a5c18 100%); }
-.pv-via    { background: linear-gradient(150deg, #0a0e1a 0%, #141c38 50%, #1e2d70 100%); }
-.pv-crisis { background: linear-gradient(150deg, #1A1220 0%, #2D1B33 50%, #3E2244 100%); }
-.pv-exp    { background: linear-gradient(150deg, #0D2318 0%, #153D28 50%, #1E5438 100%); }
-
-/* Pattern overlays using CSS only */
-.pv-rhi::after, .pv-csul::after, .pv-tec::after, .pv-via::after, .pv-crisis::after, .pv-exp::after {
-  content: '';
-  position: absolute; inset: 0;
-  opacity: 0.06;
-  background-image: repeating-linear-gradient(
-    45deg, transparent 0, transparent 8px,
-    rgba(255,255,255,0.8) 8px, rgba(255,255,255,0.8) 9px
-  );
-}
-
-/* ─── CAREER TIMELINE ────────────────────────────────────── */
-.career-bg { background: var(--ink); }
-.career-bg .s-heading { color: var(--ivory); }
-.career-bg .s-intro   { color: rgba(240,235,225,0.45); }
-.timeline { position: relative; padding-left: 1.75rem; }
-.timeline::before {
-  content: ''; position: absolute;
-  left: 0; top: 6px; bottom: 0; width: 1px;
-  background: linear-gradient(to bottom, var(--amber) 0%, rgba(184,132,42,0.1) 100%);
-}
-.tl-item {
-  position: relative; padding: 0 0 3rem 2rem;
-}
-.tl-dot {
-  position: absolute; left: -1.75rem; top: 6px;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--amber);
-  border: 2px solid var(--ink);
-  box-shadow: 0 0 0 3px rgba(184,132,42,0.22);
-  transform: translateX(-50%) translateX(0.5px);
-}
-.tl-dates {
-  font-family: var(--mono); font-size: 0.65rem;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--amber); margin-bottom: 0.4rem;
-}
-.tl-role {
-  font-family: var(--display); font-size: 1.3rem; font-weight: 600;
-  color: var(--ivory); margin-bottom: 0.2rem;
-}
-.tl-org {
-  font-size: 0.85rem; color: rgba(240,235,225,0.4);
-  margin-bottom: 0.875rem;
-}
-.tl-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.375rem; }
-.tl-bullets li {
-  font-size: 0.875rem; color: rgba(240,235,225,0.58);
-  padding-left: 1rem; position: relative; line-height: 1.65;
-}
-.tl-bullets li::before {
-  content: '→'; position: absolute; left: 0;
-  color: var(--amber); font-size: 0.72rem; top: 0.2rem;
-}
-.tl-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.875rem; }
-.tl-chip {
-  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em;
-  padding: 0.2rem 0.6rem; border-radius: 100px;
-  background: rgba(184,132,42,0.1);
-  color: rgba(184,132,42,0.75);
-  border: 1px solid rgba(184,132,42,0.22);
-}
-
-/* ─── SKILLS ─────────────────────────────────────────────── */
-.skills-bg { background: var(--dust); }
-.sk-grid {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
-}
-.sk-card {
-  padding: 1.5rem;
-  background: var(--body-bg);
-  border-radius: var(--r);
-  border: 1px solid var(--dust2);
-  transition: box-shadow 0.22s var(--ease), transform 0.22s var(--ease);
-}
-.sk-card:hover { box-shadow: 0 8px 32px rgba(12,26,38,0.08); transform: translateY(-2px); }
-.sk-icon { font-size: 1.5rem; margin-bottom: 0.875rem; }
-.sk-card h4 {
-  font-size: 0.925rem; font-weight: 600;
-  color: var(--text); margin-bottom: 0.4rem;
-}
-.sk-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
-
-/* ─── EDUCATION ──────────────────────────────────────────── */
-.edu-bg { background: var(--body-bg); }
-.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-.edu-card {
-  display: flex; gap: 1rem; align-items: flex-start;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid var(--dust2);
-  border-radius: var(--r);
-}
-.edu-icon {
-  font-size: 1.4rem; flex-shrink: 0;
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--dust); border-radius: 8px;
-}
-.edu-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; }
-.edu-inst { font-size: 0.8rem; color: var(--muted); }
-.edu-year { font-family: var(--mono); font-size: 0.68rem; color: var(--amber); letter-spacing: 0.1em; margin-top: 0.15rem; }
-
-/* ─── CONTACT ────────────────────────────────────────────── */
-.contact-bg { background: var(--ink); text-align: center; }
-.contact-bg .s-heading { color: var(--ivory); }
-.contact-bg .s-intro { color: rgba(240,235,225,0.5); margin-left: auto; margin-right: auto; }
-.contact-row { display: flex; justify-content: center; gap: 0.875rem; flex-wrap: wrap; }
-.c-link {
-  display: inline-flex; align-items: center; gap: 0.45rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.82rem; font-weight: 500;
-  border-radius: var(--r);
-  transition: all 0.2s var(--ease);
-}
-.c-link.primary { background: var(--amber); color: var(--ink); font-weight: 600; }
-.c-link.primary:hover { background: var(--amber2); transform: translateY(-2px); }
-.c-link.outline { border: 1px solid rgba(240,235,225,0.22); color: rgba(240,235,225,0.72); }
-.c-link.outline:hover { border-color: var(--amber); color: var(--amber2); transform: translateY(-2px); }
-
-/* ─── FOOTER ─────────────────────────────────────────────── */
-footer {
-  background: #060f17;
-  text-align: center; padding: 1.25rem;
-  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em;
-  color: rgba(240,235,225,0.2);
-}
-
-/* ─── SCROLL REVEAL ──────────────────────────────────────── */
-.fade-up {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
-}
-.fade-up.in { opacity: 1; transform: none; }
-
-/* ─── RESPONSIVE ─────────────────────────────────────────── */
-@media (max-width: 860px) {
-  .about-grid    { grid-template-columns: 1fr; gap: 2.5rem; }
-  .proj-grid     { grid-template-columns: 1fr; }
-  .proj-card.hero-card { grid-column: span 1; display: block; }
-  .proj-card.hero-card .proj-visual { min-height: 220px; }
-  .sk-grid       { grid-template-columns: repeat(2,1fr); }
-  .edu-grid      { grid-template-columns: 1fr; }
-  .metrics-inner { grid-template-columns: 1fr 1fr; }
-  .met           { border-right: none; border-bottom: 1px solid rgba(12,26,38,0.15); padding: 1rem 0; }
-  .met:last-child{ padding-left: 0; }
-  .met:not(:first-child):not(:last-child) { padding-left: 0; }
-  .hero-bottom   { grid-template-columns: 1fr; }
-  .hero-portrait-col { display: none; }
-}
-@media (max-width: 540px) {
-  .nav-links { display: none; }
-  .sk-grid   { grid-template-columns: 1fr; }
-  .proj-metrics { grid-template-columns: repeat(3,1fr); }
-  .metrics-inner { grid-template-columns: 1fr 1fr; }
-}
-</style>
-
-<!-- NAV -->
-<nav class="nav" role="navigation">
-  <a class="nav-brand" href="#top">Thobias Almeida</a>
-  <ul class="nav-links" role="list">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#career">Career</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="top" aria-label="Introduction">
-  <div class="hero-ambient" aria-hidden="true"></div>
-  <div class="hero-rule" aria-hidden="true"></div>
-  <p class="hero-eyebrow">Strategic Communications · Auckland, New Zealand</p>
-  <h1 class="hero-h1">
-    Turning complex<br>stories into<br><em>real results.</em>
-  </h1>
-  <div class="hero-bottom">
-    <div>
-      <p class="hero-desc">17+ years managing reputation, media, crisis, and stakeholder engagement for B2B and industrial organisations across Brazil and New Zealand. Currently based in Auckland.</p>
-      <div class="hero-ctas">
-        <a href="#projects" class="btn-a btn-amber">View My Work</a>
-        <a href="#contact" class="btn-a btn-ghost">Get In Touch</a>
-      </div>
-      <div class="hero-scroll" aria-hidden="true">
-        <span class="scroll-line"></span>
-        Scroll to explore
-      </div>
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Selected work by Thobias Almeida, an Auckland-based communications specialist working across employee communications, media, digital strategy and engagement.">
+  <meta name="theme-color" content="#efedff">
+  <title>Thobias Almeida — Communications Portfolio</title>
+  <link rel="stylesheet" href="portfolio.css">
+  <script src="portfolio.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="shell top-inner">
+      <a class="wordmark" href="#top" aria-label="Thobias Almeida, home">TA<span>.</span></a>
+      <nav aria-label="Main">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a class="nav-contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
+      </nav>
     </div>
-    <div class="hero-portrait-col" aria-hidden="true">
-      <img src="profile.jpg" alt="" class="hero-portrait">
-    </div>
-  </div>
-</section>
-
-<!-- METRICS STRIP -->
-<div class="metrics-strip" aria-label="Career highlights">
-  <div class="metrics-inner">
-    <div class="met fade-up">
-      <div class="met-num" data-count="45" data-suffix="M+">45M+</div>
-      <div class="met-label">Combined reader &amp; viewer reach across client campaigns</div>
-    </div>
-    <div class="met fade-up">
-      <div class="met-num" data-count="97" data-suffix="%">97%</div>
-      <div class="met-label">Peak positive media tone — urban real estate PR programme</div>
-    </div>
-    <div class="met fade-up">
-      <div class="met-num">NZD 1.2M+</div>
-      <div class="met-label">Advertising-equivalent PR value generated for clients</div>
-    </div>
-    <div class="met fade-up">
-      <div class="met-num" data-count="116" data-suffix="%">116%</div>
-      <div class="met-label">LinkedIn audience growth at a NZD 300M manufacturer — from near-zero in 8 months</div>
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section class="wrap about-bg" id="about" aria-labelledby="about-heading">
-  <div class="inner">
-    <div class="about-grid">
-      <div class="fade-up">
-        <span class="s-label">About Me</span>
-        <h2 class="s-heading" id="about-heading">Communications<br>with <em>substance</em>.</h2>
-        <div class="about-text">
-          <p>I started in journalism — learning to find the story, cut what doesn't matter, and write for real audiences under deadline. That discipline has underpinned everything since: building communications departments from the ground up, managing crises under pressure, and translating complex industrial work into compelling public narratives.</p>
-          <p>Over 17 years I've advised boards and executives, managed multi-client agency portfolios, produced verifiable media results, and recently completed a <strong>Master's in Business Informatics</strong> in New Zealand — adding data analytics and digital strategy to a foundation built on storytelling.</p>
-          <p>Currently based in Auckland, I bring a genuinely international perspective: fluent in navigating Brazilian corporate culture and now the New Zealand market, with full right to work until 2029.</p>
-        </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="hero shell" id="top" aria-labelledby="name">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="signal" aria-hidden="true"></span> Auckland, Aotearoa New Zealand</p>
+        <h1 id="name">Thobias<br>Almeida<span>.</span></h1>
+        <p class="role">Communications and digital strategy</p>
+        <p class="lede">I’ve built employee communications through a merger, advised leaders on sensitive issues and turned engineering work into stories people can follow. I bring a journalist’s curiosity and a practical understanding of data and technology.</p>
+        <a class="button" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
       </div>
-      <div class="fade-up">
-        <span class="s-label">Credentials</span>
-        <div class="cred-stack">
-          <div class="cred">
-            <h4>Master's in Business Informatics</h4>
-            <p>ICL Graduate Business School, Auckland NZ · 2026</p>
-          </div>
-          <div class="cred">
-            <h4>MBA — Marketing &amp; Data-Driven Strategy</h4>
-            <p>PUCRS, Brazil · 2023</p>
-          </div>
-          <div class="cred">
-            <h4>Bachelor in Journalism</h4>
-            <p>PUC Minas, Brazil · 2007</p>
-          </div>
-          <div class="cred">
-            <h4>IBM Certificate in Data Analytics</h4>
-            <p>Coursera · 2025</p>
-          </div>
-          <div class="cred">
-            <h4>Based in Auckland, NZ</h4>
-            <p>Post-Study Work Visa · Full right to work until August 2029</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      <figure class="hero-photo">
+        <img src="media/thobias-almeida.jpg" alt="Thobias Almeida" width="941" height="1176" fetchpriority="high">
+        <figcaption><span>Journalism → Communications → Business Informatics</span></figcaption>
+      </figure>
+    </section>
 
-<!-- PROJECTS -->
-<section class="wrap projects-bg" id="projects" aria-labelledby="projects-heading">
-  <div class="inner">
-    <span class="s-label">Selected Projects</span>
-    <h2 class="s-heading" id="projects-heading">Work that <em>moved the needle</em>.</h2>
-    <p class="s-intro">Client engagements and roles where communications strategy produced verifiable, measurable outcomes.</p>
-
-    <div class="proj-grid">
-
-      <!-- RHI Magnesita — featured -->
-      <article class="proj-card hero-card fade-up">
-        <div class="proj-visual">
-          <div class="pv-bg pv-rhi"></div>
-          <div class="pv-overlay"></div>
-          <div class="proj-tags">
-            <span class="ptag">Media Relations</span>
-            <span class="ptag ghost">Crisis Management</span>
-            <span class="ptag ghost">Mining · Industrial</span>
-          </div>
-          <div class="proj-visual-stat">
-            <div class="vs-num">485</div>
-            <div class="vs-divider"></div>
-            <div class="vs-label">Media placements · 12 months</div>
-          </div>
-          <div class="proj-kpi"><strong>45M</strong><span>Combined reach</span></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Annual PR Programme — Global Mining Technology Company</h3>
-          <p class="proj-desc">Led full-year media relations for the world's largest refractory technology manufacturer — a sector where coverage skews negative by default. Built journalist relationships across business, trade and regional press, and managed two high-stakes incidents: an industrial accident and a political dispute over mining taxes. Both were resolved without reputational damage.</p>
-          <div class="proj-metrics">
-            <div class="pm"><strong>485</strong><span>Media placements in 12 months</span></div>
-            <div class="pm"><strong>78%</strong><span>Positive coverage tone</span></div>
-            <div class="pm"><strong>NZD 852k</strong><span>Advertising-equivalent value</span></div>
-          </div>
-          <a href="case-study-pr-report.html" class="proj-link">Full Case Study →</a>
-        </div>
-      </article>
-
-      <!-- CSul -->
-      <article class="proj-card fade-up">
-        <div class="proj-visual">
-          <div class="pv-bg pv-csul"></div>
-          <div class="pv-overlay"></div>
-          <div class="proj-tags">
-            <span class="ptag">PR Strategy</span>
-            <span class="ptag ghost">Real Estate</span>
-          </div>
-          <div class="proj-visual-mini">
-            <div class="vm-num">+84%</div>
-            <div class="vm-label">above target</div>
-          </div>
-          <div class="proj-kpi"><strong>96.6%</strong><span>Positive coverage</span></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">PR Programme — Sustainable Urban Developer</h3>
-          <p class="proj-desc">Managed media relations for a sustainable urban developer entering a competitive and often sceptical press environment. Finished the year at 177 media placements — 84% above the brief's target — with 96.6% positive tone. Navigated a reputational threat from one of Brazil's largest newspapers without it escalating.</p>
-          <div class="proj-metrics">
-            <div class="pm"><strong>177</strong><span>Placements — 84% above target</span></div>
-            <div class="pm"><strong>23.6M</strong><span>Combined readership reached</span></div>
-            <div class="pm"><strong>96.6%</strong><span>Positive coverage tone</span></div>
-          </div>
-          <a href="case-study-social-listening.html" class="proj-link">Full Case Study →</a>
-        </div>
-      </article>
-
-      <!-- Tecnokor -->
-      <article class="proj-card fade-up">
-        <div class="proj-visual">
-          <div class="pv-bg pv-tec"></div>
-          <div class="pv-overlay"></div>
-          <div class="proj-tags">
-            <span class="ptag">Internal Comms</span>
-            <span class="ptag ghost">Brand · Digital</span>
-          </div>
-          <div class="proj-visual-mini">
-            <div class="vm-num">89%</div>
-            <div class="vm-label">employee satisfaction</div>
-          </div>
-          <div class="proj-kpi"><strong>89%</strong><span>Employee satisfaction</span></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Building a Comms Function From Scratch — NZD 300M Manufacturer</h3>
-          <p class="proj-desc">Built the company's first communications department at a capital goods manufacturer undergoing a major brand merger. Defined the strategy, hired the team, and ran everything from internal campaigns to trade events. Internal safety and productivity communications contributed to the company's best-ever production year and lowest accident rate on record. The first-ever employee engagement survey returned 89% satisfaction.</p>
-          <div class="proj-metrics">
-            <div class="pm"><strong>89%</strong><span>Employee satisfaction (first survey)</span></div>
-            <div class="pm"><strong>116%</strong><span>LinkedIn growth in 8 months</span></div>
-            <div class="pm"><strong>Record</strong><span>Production year &amp; lowest accidents</span></div>
-          </div>
-          <a href="case-study-pr-report.html" class="proj-link">Related Work →</a>
-        </div>
-      </article>
-
-      <!-- Crisis Management -->
-      <article class="proj-card fade-up">
-        <div class="proj-visual">
-          <div class="pv-bg pv-crisis"></div>
-          <div class="pv-overlay"></div>
-          <div class="proj-tags">
-            <span class="ptag">Crisis Management</span>
-            <span class="ptag ghost">Reputation</span>
-            <span class="ptag ghost">Real Estate</span>
-          </div>
-          <div class="proj-visual-mini">
-            <div class="vm-num" style="font-size:1.6rem;letter-spacing:0">Licence<br>Reinstated</div>
-            <div class="vm-label">after court suspension</div>
-          </div>
-          <div class="proj-kpi"><strong>Licence</strong><span>Reinstated</span></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Crisis Management — Confidential Real Estate Client</h3>
-          <p class="proj-desc">A luxury coastal development faced an NGO judicial challenge, a court-ordered suspension, and growing social media backlash — while only 11% of locals supported the project. Designed a full crisis communications framework: scenario mapping, Q&A matrix, key message architecture, social media protocols, and media response procedures. Organised sectoral community meetings to address specific concerns by stakeholder group rather than holding one large confrontational session. The operating licence was reinstated. The issue never reached national media.</p>
-          <div class="proj-metrics">
-            <div class="pm"><strong>Licence reinstated</strong><span>After court-ordered suspension</span></div>
-            <div class="pm"><strong>Zero national press</strong><span>Issue contained at regional level</span></div>
-            <div class="pm"><strong>Trust rebuilt</strong><span>Sectoral dialogue, not broadcasting</span></div>
-          </div>
-          <a href="case-study-crisis-plan.html" class="proj-link">Full Case Study →</a>
-        </div>
-      </article>
-
-      <!-- Expedição Piracicaba -->
-      <article class="proj-card fade-up">
-        <div class="proj-visual">
-          <div class="pv-bg pv-exp"></div>
-          <div class="pv-overlay"></div>
-          <div class="proj-tags">
-            <span class="ptag">Environmental PR</span>
-            <span class="ptag ghost">Campaign</span>
-            <span class="ptag ghost">TV · Print · Digital</span>
-          </div>
-          <div class="proj-visual-mini">
-            <div class="vm-num">100%</div>
-            <div class="vm-label">positive coverage</div>
-          </div>
-          <div class="proj-kpi"><strong>100%</strong><span>Positive coverage</span></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Expedição Piracicaba — River Conservation Campaign</h3>
-          <p class="proj-desc">Developed and executed the communications strategy for a scientific expedition down the Piracicaba river, moving through 21 cities across São Paulo state over several weeks. The goal was to turn a technical environmental research project into a public event that would generate political and community support for river conservation. Secured daily coverage on Rede Minas — Brazil's public television network, rebroadcast nationally — alongside print, radio, and local digital media. Every piece of coverage was positive in tone. Mayors, state legislators, and senior environmental scientists attended the community events that the media coverage helped mobilise.</p>
-          <div class="proj-metrics">
-            <div class="pm"><strong>100%</strong><span>Positive coverage, all media</span></div>
-            <div class="pm"><strong>Daily national TV</strong><span>Rede Minas, rebroadcast nationally</span></div>
-            <div class="pm"><strong>Political reach</strong><span>Mayors &amp; legislators mobilised</span></div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Via 040 -->
-      <article class="proj-card fade-up">
-        <div class="proj-visual">
-          <div class="pv-bg pv-via"></div>
-          <div class="pv-overlay"></div>
-          <div class="proj-tags">
-            <span class="ptag">Public Affairs</span>
-            <span class="ptag ghost">Infrastructure</span>
-          </div>
-          <div class="proj-visual-mini">
-            <div class="vm-num">34</div>
-            <div class="vm-label">municipalities engaged</div>
-          </div>
-          <div class="proj-kpi"><strong>4 years</strong><span>Retained engagement</span></div>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Federal Highway Concession — Community & Stakeholder Communications</h3>
-          <p class="proj-desc">Four-year retained communications engagement for a 1,000 km federal highway concession spanning 34 municipalities across 3 Brazilian states. The central challenge: introducing paid tolls on a highway communities had always used for free. Rather than broadcasting top-down messaging, built a hyper-local engagement model — working directly with municipal journalists, mayors, community leaders, and politicians in each town to reframe the narrative from an imposition to a regional investment in safety and road quality. Achieved operational acceptance across all 34 municipalities without sustained organised opposition.</p>
-          <div class="proj-metrics">
-            <div class="pm"><strong>34 municipalities</strong><span>Each engaged individually</span></div>
-            <div class="pm"><strong>Tolls accepted</strong><span>On a previously free highway</span></div>
-            <div class="pm"><strong>4 years retained</strong><span>Full concession period</span></div>
-          </div>
-          <a href="case-study-infrastructure.html" class="proj-link">Full Case Study →</a>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- CAREER -->
-<section class="wrap career-bg" id="career" aria-labelledby="career-heading">
-  <div class="inner">
-    <span class="s-label">Career History</span>
-    <h2 class="s-heading" id="career-heading">Where I've <em>worked</em>.</h2>
-    <p class="s-intro">From journalism to agency consulting to in-house leadership — a career built across sectors and countries.</p>
-    <div class="timeline">
-
-      <div class="tl-item fade-up">
-        <div class="tl-dot" aria-hidden="true"></div>
-        <div class="tl-dates">Mar 2026 – Present</div>
-        <div class="tl-role">Front of House Ambassador</div>
-        <div class="tl-org">Menzies Aviation / DraftNZ · Auckland International Airport</div>
-        <ul class="tl-bullets">
-          <li>First point of contact for passenger queries at NZ's busiest international terminal</li>
-          <li>Travel document verification, queue management, wayfinding, real-time schedule communication</li>
-          <li>Operates under aircraft departure deadlines with no margin for error</li>
-        </ul>
-        <div class="tl-chips">
-          <span class="tl-chip">NZ Local Experience</span>
-          <span class="tl-chip">Client-Facing</span>
-          <span class="tl-chip">Operational Pressure</span>
-        </div>
-      </div>
-
-      <div class="tl-item fade-up">
-        <div class="tl-dot" aria-hidden="true"></div>
-        <div class="tl-dates">Feb 2023 – Sep 2024</div>
-        <div class="tl-role">Communications Manager</div>
-        <div class="tl-org">Tecnokor Group · Brazil (NZD 300M revenue)</div>
-        <ul class="tl-bullets">
-          <li>Built the company's first integrated communications department during a major brand merger</li>
-          <li>89% employee satisfaction in company's first-ever engagement survey (250 respondents)</li>
-          <li>Grew LinkedIn audience 116% in 8 months through video storytelling and content strategy</li>
-          <li>Produced and directed a corporate video that reached 40,000+ industry professionals — the company's single highest-reach content piece to date</li>
-          <li>Led company's return to Exposibram (world's largest mining trade fair) after 10-year absence</li>
-          <li>Internal safety campaigns contributed to best production year and lowest accident rate in history</li>
-        </ul>
-        <div class="tl-chips">
-          <span class="tl-chip">Internal Comms</span>
-          <span class="tl-chip">Brand Strategy</span>
-          <span class="tl-chip">Digital</span>
-          <span class="tl-chip">Events</span>
-        </div>
-      </div>
-
-      <div class="tl-item fade-up">
-        <div class="tl-dot" aria-hidden="true"></div>
-        <div class="tl-dates">Feb 2017 – Dec 2021</div>
-        <div class="tl-role">Advertising &amp; Commercial Photographer</div>
-        <div class="tl-org">Freelance · Brazil</div>
-        <ul class="tl-bullets">
-          <li>Specialised in advertising, corporate, and industrial photography — end-to-end production from client brief to art direction and final delivery</li>
-          <li>Work published in national magazines and major Brazilian trade publications</li>
-          <li>Visual storytelling discipline from this period directly informs how I approach content strategy, video production, and channel design today</li>
-        </ul>
-        <div class="tl-chips">
-          <span class="tl-chip">Visual Storytelling</span>
-          <span class="tl-chip">Art Direction</span>
-          <span class="tl-chip">Commercial Photography</span>
-          <span class="tl-chip">Content Production</span>
-        </div>
-      </div>
-
-      <div class="tl-item fade-up">
-        <div class="tl-dot" aria-hidden="true"></div>
-        <div class="tl-dates">Dec 2021 – Jan 2023</div>
-        <div class="tl-role">Senior Communications Consultant</div>
-        <div class="tl-org">Rede Comunicação · Brazil (NZD 5.5M agency)</div>
-        <ul class="tl-bullets">
-          <li>Primary contact for 6 simultaneous client accounts across mining, real estate, and energy</li>
-          <li>Global mining technology manufacturer: 485 placements · NZD 852k PR value · 45M audience · 2 crises managed</li>
-          <li>Urban real estate developer: 177 placements (84% above target) · 96.6% positive coverage</li>
-          <li>Energy sector client: 97.1% positive coverage · NZD 388k PR value · 23.6M reach</li>
-        </ul>
-        <div class="tl-chips">
-          <span class="tl-chip">PR Strategy</span>
-          <span class="tl-chip">Crisis Management</span>
-          <span class="tl-chip">Media Relations</span>
-          <span class="tl-chip">B2B</span>
-        </div>
-      </div>
-
-      <div class="tl-item fade-up">
-        <div class="tl-dot" aria-hidden="true"></div>
-        <div class="tl-dates">May 2013 – Feb 2017</div>
-        <div class="tl-role">Senior Communications Consultant</div>
-        <div class="tl-org">Link Comunicação · Via 040 highway concession, Brazil</div>
-        <ul class="tl-bullets">
-          <li>Sole external consultant on a four-year retained engagement for a 1,000 km highway concession</li>
-          <li>Near-daily reactive coordination across 3 states, legislative hearings, and 15-scenario response library</li>
-          <li>Converted sceptical public across 34 municipalities on a politically sensitive infrastructure programme</li>
-        </ul>
-        <div class="tl-chips">
-          <span class="tl-chip">Public Affairs</span>
-          <span class="tl-chip">Stakeholder Engagement</span>
-          <span class="tl-chip">Infrastructure</span>
-        </div>
-      </div>
-
-      <div class="tl-item fade-up">
-        <div class="tl-dot" aria-hidden="true"></div>
-        <div class="tl-dates">2009 – 2012</div>
-        <div class="tl-role">Reporter</div>
-        <div class="tl-org">Estado de Minas · Brazil's leading regional broadsheet</div>
-        <ul class="tl-bullets">
-          <li>Political and general reporting for one of Brazil's most respected newspapers</li>
-          <li>The journalistic rigour and editorial discipline that underpins everything since</li>
-        </ul>
-        <div class="tl-chips">
-          <span class="tl-chip">Journalism</span>
-          <span class="tl-chip">Politics</span>
-          <span class="tl-chip">Editorial Writing</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section class="wrap skills-bg" aria-labelledby="skills-heading">
-  <div class="inner">
-    <span class="s-label">Capabilities</span>
-    <h2 class="s-heading" id="skills-heading">What I <em>bring</em>.</h2>
-    <div class="sk-grid">
-      <div class="sk-card fade-up">
-        <div class="sk-icon">📰</div>
-        <h4>Media Relations &amp; PR</h4>
-        <p>Proactive and reactive media management. Editorial planning, spokesperson management, journalist relationships, clipping and performance tracking, PR value reporting.</p>
-      </div>
-      <div class="sk-card fade-up">
-        <div class="sk-icon">🔥</div>
-        <h4>Crisis Communications</h4>
-        <p>Managed 5+ high-stakes crises across judicial, environmental, and reputational categories. Messaging frameworks, escalation protocols, real-time response under deadline pressure.</p>
-      </div>
-      <div class="sk-card fade-up">
-        <div class="sk-icon">🏭</div>
-        <h4>Internal Communications</h4>
-        <p>Channel planning, audience segmentation, leader communications, engagement surveys. Built internal comms functions from scratch at two separate organisations.</p>
-      </div>
-      <div class="sk-card fade-up">
-        <div class="sk-icon">🤝</div>
-        <h4>Stakeholder Engagement</h4>
-        <p>Politicians, community leaders, regulators, media, employees, and executives. Long-term relationship management in high-controversy public affairs contexts.</p>
-      </div>
-      <div class="sk-card fade-up">
-        <div class="sk-icon">📊</div>
-        <h4>Data &amp; Digital Strategy</h4>
-        <p>Power BI, BuzzMonitor, SAP, Google Analytics. SQL and Python fundamentals. LinkedIn content strategy with a documented 116% growth result in 8 months.</p>
-      </div>
-      <div class="sk-card fade-up">
-        <div class="sk-icon">✍️</div>
-        <h4>Writing &amp; Editorial</h4>
-        <p>Formed as a journalist. Executive speeches, press releases, web copy, video scripts, LinkedIn content, internal newsletters, crisis statements. Bilingual: English &amp; Portuguese.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EDUCATION -->
-<section class="wrap edu-bg" aria-labelledby="edu-heading">
-  <div class="inner">
-    <span class="s-label">Education</span>
-    <h2 class="s-heading" id="edu-heading">Academic <em>background</em>.</h2>
-    <div class="edu-grid">
-      <div class="edu-card fade-up">
-        <div class="edu-icon">🎓</div>
+    <section class="work shell" id="work" aria-labelledby="work-title">
+      <div class="section-intro">
         <div>
-          <h4>Master's in Business Informatics</h4>
-          <div class="edu-inst">ICL Graduate Business School, Auckland NZ</div>
-          <div class="edu-year">2026</div>
+          <p class="eyebrow">Portfolio</p>
+          <h2 id="work-title">Selected work</h2>
+        </div>
+        <p>Selected work across organisational change, crisis response, employee communications, media relations and engagement.</p>
+      </div>
+
+      <article class="feature" id="industrial-video">
+        <div class="feature-copy">
+          <p class="eyebrow"><span class="signal" aria-hidden="true"></span> Featured case / Industrial manufacturing</p>
+          <h3>Explaining an urgent industrial response</h3>
+          <p>A manufacturer made and dispatched replacement equipment for a mining operation under tight deadlines. The film used factory footage and leadership interviews to explain how the teams did it.</p>
+          <p class="credit">As communications manager, I directed corporate video production and wrote about engineering work for industry audiences.</p>
+        </div>
+        <div class="feature-evidence">
+          <p class="eyebrow">Distribution and response</p>
+          <p class="feature-number">40,000</p>
+          <p class="feature-audience">views on LinkedIn, primarily among CEOs, directors and management teams</p>
+          <p class="feature-outcome">Other clients got in touch after seeing it. The project and its execution were presented as a case study in seminars and workshops, with the video illustrating how the work was delivered.</p>
+        </div>
+        <figure class="feature-video">
+          <video controls playsinline preload="metadata" poster="media/tecnokor-aerial-preview.jpg" width="1280" height="720" aria-label="Tecnokor industrial response video with English subtitles" aria-describedby="video-caption">
+            <source src="media/tecnokor-salobo-iii-en.mp4" type="video/mp4">
+            <a href="media/tecnokor-salobo-iii-en.mp4">Watch the Tecnokor video</a>
+          </video>
+          <figcaption id="video-caption">Tecnokor · 5:01 · Portuguese audio with English dialogue subtitles</figcaption>
+        </figure>
+      </article>
+
+      <div class="catalogue">
+        <div class="catalogue-top">
+          <h3>Case notes</h3>
+          <div class="filters" aria-label="Filter case notes" hidden>
+            <button type="button" data-filter="all" aria-pressed="true" aria-controls="case-notes">All</button>
+            <button type="button" data-filter="crisis" aria-pressed="false" aria-controls="case-notes">Crisis communications</button>
+            <button type="button" data-filter="employee" aria-pressed="false" aria-controls="case-notes">Employee comms</button>
+            <button type="button" data-filter="media" aria-pressed="false" aria-controls="case-notes">Media</button>
+            <button type="button" data-filter="digital" aria-pressed="false" aria-controls="case-notes">Digital</button>
+            <button type="button" data-filter="engagement" aria-pressed="false" aria-controls="case-notes">Engagement</button>
+          </div>
+        </div>
+        <p id="filter-status" class="sr-only" role="status"></p>
+        <div class="cases" id="case-notes">
+          <article class="case" data-topics="employee engagement" id="merger-communications">
+            <div class="case-heading"><p class="eyebrow">Industrial manufacturing · 2023–24</p><span>Merger &amp; employee comms</span></div>
+            <h4>Building one employee voice through a merger</h4>
+            <p>I rebuilt the communications function as two manufacturing businesses came together under one brand. Working directly with senior leadership and HR, I led employee communications through the transition, explained changes to employment arrangements and developed content and channels for factory and office teams. Internal communications received an 80% approval rating among employee survey respondents.</p>
+            <div class="case-figure numbers">
+              <div><strong>80%</strong><span>internal communications approval among survey respondents</span></div>
+              <div><strong>2</strong><span>businesses brought together under one brand</span></div>
+            </div>
+            <figure class="work-sample">
+              <a class="photo-sample" href="media/industrial-metalworking-restored.jpg" aria-label="View the metalworking photograph from the industrial image library"><img src="media/industrial-metalworking-restored.jpg" alt="Industrial worker in protective clothing and a branded hard hat cutting steel amid a shower of bright orange sparks" width="1254" height="1254" loading="lazy"></a>
+              <figcaption>Photography by Thobias Almeida · part of the company’s new image library, which I photographed in full.</figcaption>
+            </figure>
+            <details><summary>How I supported the transition</summary>
+              <p><strong>Answer the questions behind the change.</strong> I developed employee communications covering contract continuity, benefits, employee records and the practical steps in the transition. I worked across leadership and HR to make sensitive changes clear and reduce uncertainty.</p>
+              <p><strong>Rebuild the communication system.</strong> I diagnosed information silos and a largely top-down editorial approach, then authored an internal communications plan covering audience needs, content pillars, channels and measurement. I redesigned employee updates for mobile reading, standardised corporate materials and developed guidance on social media, confidentiality and authorised spokespeople.</p>
+              <p><strong>Create the visual library.</strong> I photographed the company’s entire new image library, documenting its people, engineering, manufacturing processes and facilities for corporate communications.</p>
+              <p><strong>Connect leadership, feedback and delivery.</strong> I led a three-person team and supported the launch of the code of conduct and reporting channel, coordinating across departments and suppliers. I also helped design the employee survey, presented findings to leaders and communicated results to staff. The plan proposed more employee stories, direct feedback and a stronger role for leaders in everyday communication.</p>
+            </details>
+          </article>
+
+          <article class="case" data-topics="crisis engagement" id="crisis-response">
+            <div class="case-heading"><p class="eyebrow">Industrial manufacturing</p><span>Live crisis response</span></div>
+            <h4>Responding to political pressure with an integrated campaign</h4>
+            <p>When a mineral-royalty dispute put an industrial manufacturer under political and media scrutiny, I led a response spanning public affairs, media relations, employee communications and marketing. I analysed the political landscape, prepared leadership messages and helped plan a local campaign across outdoor media, radio and digital channels. Our response helped overcome the reputational crisis, gaining support from local authorities and community leaders as media and political pressure eased over two months.</p>
+            <div class="case-figure numbers">
+              <div><strong>Local support</strong><span>gained from authorities and community leaders</span></div>
+              <div><strong>2 months</strong><span>over which media and political pressure eased</span></div>
+            </div>
+            <figure class="work-sample">
+              <a href="media/industrial-campaign-billboard.png" aria-label="View the industrial campaign billboard artwork"><img src="media/industrial-campaign-billboard.png" alt="Billboard campaign artwork combining an employee portrait with evidence of the business's local economic contribution" width="1600" height="534" loading="lazy"></a>
+              <figcaption>Outdoor campaign artwork highlighting employment and the company’s contribution to the local economy.</figcaption>
+            </figure>
+            <details><summary>How I coordinated the response</summary>
+              <p><strong>Understand the pressure.</strong> I mapped political alliances, influential local media and the way allegations were circulating through WhatsApp. That analysis informed the response priorities, leadership briefings and messages explaining the company's position on the disputed royalty assessment.</p>
+              <p><strong>Build a campaign around evidence.</strong> Working with the advertising team, I helped plan outdoor billboards, LED panels, radio spots, local news advertising, social posts and WhatsApp content. I reviewed campaign copy built around employment, community programmes, environmental work and investment, using supporting figures to make the company's local contribution tangible.</p>
+              <p><strong>Connect public and employee communication.</strong> The response plan paired press statements with a spokesperson Q&amp;A, preparation for difficult questions and proposed meetings with local journalists. Employee messages explained the situation and reinforced the same factual points. Public affairs correspondence and community engagement formed part of the wider response.</p>
+            </details>
+          </article>
+
+          <article class="case" data-topics="crisis employee" id="crisis-preparedness">
+            <div class="case-heading"><p class="eyebrow">Mining operation, Brazil</p><span>Crisis preparedness</span></div>
+            <h4>Turning complex risks into decisions leaders can act on</h4>
+            <p>I developed an integrated crisis management and communications plan for a mining operation in Brazil, connecting site leadership with its international corporate team. I mapped risks, assigned decision-making roles and built a first-hour response sequence covering fact verification, approvals, employee updates and public communication.</p>
+            <div class="case-figure numbers">
+              <div><strong>25</strong><span>risk scenarios mapped across operational and external threats</span></div>
+              <div><strong>5</strong><span>detailed playbooks for incidents affecting people, communities and operations</span></div>
+            </div>
+            <details><summary>How I built judgement into the response</summary>
+              <p><strong>Deciding when to speak.</strong> I built a visibility test around media enquiries, circulating images, visible signs of an incident and immediate community impacts. It gave the communications lead concrete grounds for recommending a holding statement. A timed approval process brought technical, legal and leadership review together, with an initial publication target within 60 minutes.</p>
+              <p><strong>Putting people first.</strong> Five playbooks addressed serious injuries and fatalities, dam safety, environmental spills, misinformation and access blockades. They linked each scenario to immediate actions, affected audiences and draft messages. Family notification came before public identification, while community updates used accessible language and channels such as local radio and community leaders.</p>
+              <p><strong>Keeping the response coordinated.</strong> Three escalation levels clarified when local and corporate teams became involved. Digital instructions covered pausing scheduled campaigns and automated replies, publishing verified updates and assessing rumours. Spokesperson briefings, reception scripts and a decision log supported consistent information across the response.</p>
+            </details>
+          </article>
+
+          <article class="case" data-topics="employee engagement" id="employee-communications">
+            <div class="case-heading"><p class="eyebrow">Mining</p><span>Employee comms</span></div>
+            <h4>Designing comms for a workforce across four mine sites</h4>
+            <p>I audited six channels and interviewed 12 managers across mining and office operations. I used what they told me to design an internal communications plan for 1,848 employees.</p>
+            <div class="case-figure numbers">
+              <div><strong>12</strong><span>manager interviews</span></div>
+              <div><strong>6</strong><span>channels audited</span></div>
+            </div>
+            <details><summary>What the plan covered</summary><p>The plan assigned responsibilities, proposed channels for different staff groups, and set out how leaders and site ambassadors could share updates and gather feedback.</p></details>
+          </article>
+
+          <article class="case" data-topics="media" id="media-relations">
+            <div class="case-heading"><p class="eyebrow">Industrial manufacturing</p><span>Media relations</span></div>
+            <h4>Getting more coverage in priority outlets</h4>
+            <p>I managed media relations for an industrial client and tracked coverage by outlet and topic. The account met all six annual coverage targets by June 2022.</p>
+            <div class="case-figure bars" role="img" aria-label="Priority outlet placements rose from 49 in January to June 2021 to 109 in January to June 2022">
+              <p>Priority outlet placements <span>Up 122% year on year</span></p>
+              <div><span>2021</span><i class="bar" style="--fill:45%"></i><strong>49</strong></div>
+              <div><span>2022</span><i class="bar strong" style="--fill:100%"></i><strong>109</strong></div>
+            </div>
+            <figure class="work-sample">
+              <a href="media/media-topic-targets-en.svg" aria-label="View the coverage results chart with revised English labels"><img src="media/media-topic-targets-en.svg" alt="Media coverage by topic, comparing annual targets with January–June 2022 results across six topics, with every target exceeded" width="1200" height="550" loading="lazy"></a>
+              <figcaption>Adapted from the January–June 2022 report, with revised English labels. All six annual topic targets were exceeded by mid-year.</figcaption>
+            </figure>
+            <details><summary>How the account measured progress</summary><p>We tracked where coverage appeared and which topics it addressed. The first-half 2022 account report recorded 288 placements overall, up 13% year on year.</p></details>
+          </article>
+
+          <article class="case" data-topics="digital engagement" id="digital-advocacy">
+            <div class="case-heading"><p class="eyebrow">NZ organics sector</p><span>Digital &amp; advocacy</span></div>
+            <h4>Turning a complex policy issue into public action</h4>
+            <p>As a volunteer for a national organics organisation, I developed digital content supporting its 2025 Gene Technology Bill campaign. I shaped clear calls to action for supporters to contact MPs, supermarkets and media, using video, carousels and social copy. Alongside the campaign, I audited the website and created a prioritised improvement plan covering audience relevance, mobile usability and search visibility.</p>
+            <div class="case-figure numbers">
+              <div><strong>3 routes</strong><span>for supporter action through MPs, retailers and media</span></div>
+              <div><strong>12 weeks</strong><span>planning horizon for staged website improvements</span></div>
+            </div>
+            <details><summary>How I shaped the campaign</summary>
+              <p><strong>Make participation practical.</strong> I developed captions and messages around specific actions, including emailing an MP, asking supermarkets about product choices and contacting local media. The campaign brief covered both the parliamentary submission period and continued engagement after the deadline, giving supporters ways to stay involved.</p>
+              <p><strong>Give the issue a human story.</strong> My work included short video scripts, social stories and carousel content linking the policy debate to consumer choice, farming and the organic sector. I also developed ideas for farmer stories and member coverage to broaden the content beyond the immediate legislative campaign.</p>
+              <p><strong>Use data to question the audience fit.</strong> I compared Ubersuggest, Semrush and SimilarWeb estimates, accounting for their different geographic and reporting periods. The audit flagged a potential mismatch between estimated international traffic and the intended New Zealand audience, alongside weak calls to action, mobile readability issues and slow-loading pages.</p>
+              <p><strong>Turn the audit into priorities.</strong> I organised recommendations into immediate, four-week and twelve-week stages. These covered clearer membership and donation prompts, readable page layouts, better headings and internal links, image optimisation and more useful search content.</p>
+            </details>
+          </article>
+
+          <article class="case" data-topics="engagement media" id="river-expedition">
+            <div class="case-heading"><p class="eyebrow">Environmental research</p><span>Community engagement</span></div>
+            <h4>Taking river science to the communities it affects</h4>
+            <p>I led communications for the first stage of a scientific river expedition in Brazil in 2019. I produced daily bulletins, coordinated communications for school and community events, and helped turn field research into stories for digital audiences and daily television reports rebroadcast across Brazil.</p>
+            <div class="case-figure numbers">
+              <div><strong>~20,000</strong><span>people mobilised, per the state environmental agency</span></div>
+              <div><strong>21</strong><span>municipalities along the expedition route</span></div>
+              <div><strong>171</strong><span>field coverage videos published by the project</span></div>
+              <div><strong>30</strong><span>news posts during the expedition and immediate wrap-up</span></div>
+            </div>
+            <figure class="work-sample">
+              <a href="media/expedition-field-interview.jpg" aria-label="View the expedition field interview photograph"><img src="media/expedition-field-interview.jpg" alt="An expedition team member films a field interview beside the river while researchers collect samples nearby" width="1024" height="576" loading="lazy"></a>
+              <figcaption>Filming the fieldwork · May 2019. <a class="source-credit" href="https://expedicao.tribunadopiracicaba.com/?p=14045">Project archive</a></figcaption>
+            </figure>
+            <figure class="work-sample">
+              <a href="media/expedition-river-journey.jpg" aria-label="View the expedition river photograph"><img src="media/expedition-river-journey.jpg" alt="Expedition kayakers paddling along a broad river bordered by forest as they approach the river mouth" width="1024" height="678" loading="lazy"></a>
+              <figcaption>The river journey · June 2019. <a class="source-credit" href="https://expedicao.tribunadopiracicaba.com/?p=14058">Project archive</a></figcaption>
+            </figure>
+            <details><summary>How I made the research accessible</summary><p>I worked with scientists and local organisers to explain the fieldwork in everyday language. Our team supplied footage for daily reports on a state television channel. The video and news figures reflect the project's published coverage of the May–June 2019 expedition, including updated versions of some news stories. The project was a sustainability award finalist for social mobilisation. I later wrote the introduction to the expedition book, connecting the research with the experiences of the communities along the river.</p></details>
+          </article>
+
+          <article class="case" data-topics="digital engagement" id="campaigns">
+            <div class="case-heading"><p class="eyebrow">Elections in Brazil</p><span>Campaign strategy</span></div>
+            <h4>Taking campaign intelligence from research to delivery</h4>
+            <p>I led communications and coordinated a 50-person team for a winning Brazilian mayoral campaign. Across my electoral work, I used research and meetings with political leaders to shape positioning, recommend spending and staffing priorities, and adapt messages to local concerns. For a later state campaign, I analysed voting patterns across 13 municipalities in Power BI to inform campaign strategy.</p>
+            <div class="campaign-gallery" aria-label="Campaign work samples">
+              <figure>
+                <a class="sample-preview" href="https://www.facebook.com/profile.php?id=100068778525153" aria-label="Visit the campaign Facebook page">
+                  <span class="facebook-window"><img src="media/campaign-facebook-page.jpg" alt="Snapshot of the campaign Facebook page, showing its coordinated cover and profile imagery" width="1265" height="712" loading="lazy"></span>
+                </a>
+                <figcaption>Campaign Facebook page</figcaption>
+              </figure>
+              <figure>
+                <a class="sample-preview" href="media/campaign-policy-brochure.png" aria-label="View the campaign policy brochure artwork">
+                  <img src="media/campaign-policy-brochure.png" alt="Campaign policy brochure presentation with candidate photography, local imagery and coordinated campaign branding" width="827" height="827" loading="lazy">
+                </a>
+                <figcaption>Policy brochure · 2020 campaign</figcaption>
+              </figure>
+            </div>
+            <div class="case-figure numbers">
+              <div><strong>47.5%</strong><span>of valid votes for the winning mayoral candidate</span></div>
+              <div><strong>+83.5%</strong><span>more votes locally for the re-elected state candidate</span></div>
+            </div>
+            <details><summary>How I worked on the campaigns</summary>
+              <p><strong>Turn research into a campaign direction.</strong> For the 2020 mayoral campaign, I analysed voter surveys, previous election results, candidate recognition and the issues residents prioritised. I used the findings to develop positioning and a costed communications plan, connecting the candidate's experience and proposals with local concerns.</p>
+              <p><strong>Make decisions about resources.</strong> Across the campaigns, I helped determine where to recommend increased spending, where more staff were needed and which messages fitted each locality. Political meetings with leaders added local insight to the data and helped shape the campaign's direction.</p>
+              <p><strong>Connect strategy with delivery.</strong> I led the mayoral campaign's communications and coordinated a 50-person team. Planning covered candidate interviews, biographies, policy proposals, social media profiles and WhatsApp distribution, giving the team a practical framework for consistent messaging.</p>
+              <p><strong>Measure the electoral result.</strong> The mayoral candidate won with 47.5% of valid votes. In the 2022 state campaign, my Power BI analysis covered 13 municipalities. The re-elected candidate's vote in the focus municipality rose from 540 to 991, an 83.5% increase.</p>
+            </details>
+          </article>
         </div>
       </div>
-      <div class="edu-card fade-up">
-        <div class="edu-icon">📈</div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="shell about-grid">
         <div>
-          <h4>MBA — Marketing &amp; Data-Driven Strategy</h4>
-          <div class="edu-inst">PUCRS, Brazil</div>
-          <div class="edu-year">2023</div>
+          <p class="eyebrow">About</p>
+          <h2 id="about-title">How I work</h2>
+          <p class="about-intro">I started in journalism. That taught me to ask good questions, verify the answer and write for the person who has to make sense of it. I’ve since applied that approach in corporate teams, agencies, political campaigns and a New Zealand advocacy organisation.</p>
+        </div>
+        <div class="practice">
+          <div><h3>Start with the people doing the work</h3><p>I work with leaders, frontline teams and subject experts to understand what’s changing, what staff need to know and where they’re likely to look for it.</p></div>
+          <div><h3>Learn the subject quickly</h3><p>I’ve moved between journalism, manufacturing, mining and digital advocacy. Completing a Master’s in Business Informatics in New Zealand gave me more ways to work with data, from checking analytics estimates to building Power BI dashboards.</p></div>
+          <div><h3>Work across the brief</h3><p>I’m comfortable advising a leader, reviewing audience data, writing a staff update or directing video production. I’ve done that work in English and Portuguese.</p></div>
         </div>
       </div>
-      <div class="edu-card fade-up">
-        <div class="edu-icon">📰</div>
-        <div>
-          <h4>Bachelor of Journalism</h4>
-          <div class="edu-inst">PUC Minas, Brazil</div>
-          <div class="edu-year">2007</div>
-        </div>
+    </section>
+
+    <section class="contact shell" id="contact" aria-labelledby="contact-title">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">Get in touch</h2>
+        <p>I’m based in Auckland and open to communications roles across New Zealand.</p>
       </div>
-      <div class="edu-card fade-up">
-        <div class="edu-icon">💻</div>
-        <div>
-          <h4>Certificate in Data Analytics</h4>
-          <div class="edu-inst">Coursera / IBM</div>
-          <div class="edu-year">2025</div>
-        </div>
+      <div class="contact-links">
+        <a class="button" href="mailto:thobiasalmeida@gmail.com">Email me <span aria-hidden="true">↗</span></a>
+        <a class="button outline" href="https://www.linkedin.com/in/thobias-almeida">LinkedIn <span aria-hidden="true">↗</span></a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="wrap contact-bg" id="contact" aria-labelledby="contact-heading">
-  <div class="inner">
-    <span class="s-label">Get In Touch</span>
-    <h2 class="s-heading" id="contact-heading">Let's work <em>together</em>.</h2>
-    <p class="s-intro">Available for communications strategy, PR, internal comms, and content roles in Auckland and beyond.</p>
-    <div class="contact-row">
-      <a href="mailto:thobiasalmeida@gmail.com" class="c-link primary">✉ thobiasalmeida@gmail.com</a>
-      <a href="https://linkedin.com/in/thobiasalmeida" target="_blank" rel="noopener" class="c-link outline">in LinkedIn</a>
-      <a href="resume.html" class="c-link outline">↓ View Full CV</a>
-    </div>
-  </div>
-</section>
-
-<footer>© 2026 Thobias Almeida · Auckland, New Zealand</footer>
-
-<script>
-// Scroll reveal
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-
-// Stagger siblings in grids
-document.querySelectorAll('.proj-grid, .sk-grid, .edu-grid, .metrics-inner, .cred-stack').forEach(grid => {
-  Array.from(grid.querySelectorAll('.fade-up')).forEach((el, i) => {
-    el.style.transitionDelay = (i * 0.08) + 's';
-  });
-});
-
-// Counter animation for metric numbers with data-count
-const metIO = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    const target = +el.dataset.count;
-    const suffix = el.dataset.suffix || '';
-    if (!target) return;
-    metIO.unobserve(el);
-    let start = null;
-    const dur = 1600;
-    const tick = ts => {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / dur, 1);
-      const v = Math.floor((1 - Math.pow(1 - p, 3)) * target);
-      el.textContent = v + suffix;
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('[data-count]').forEach(el => metIO.observe(el));
-</script>
+    </section>
+  </main>
+  <footer><div class="shell footer-inner"><span>Thobias Almeida</span><a href="#top">Back to top ↑</a></div></footer>
+</body>
+</html>
