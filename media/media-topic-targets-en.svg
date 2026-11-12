@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="550" viewBox="0 0 1200 550" role="img" aria-labelledby="title description">
+<title id="title">Media coverage by topic</title>
+<desc id="description">Annual targets compared with January to June 2022 results. Innovation 16 and 41. Corporate 40 and 57. Business 14 and 31. Social responsibility 10 and 39. HR and diversity 27 and 47. Sustainability 12 and 73. All six annual targets were exceeded by June.</desc>
+<rect width="1200" height="550" fill="white"/>
+<g font-family="Arial, Helvetica, sans-serif" fill="#46576f">
+<text x="26" y="57" font-size="42" font-weight="700" fill="#009875">Media coverage by topic</text>
+<line x1="275" y1="95" x2="275" y2="510" stroke="#d2d6dc"/>
+<text x="255" y="139" text-anchor="end" font-size="23">Innovation</text>
+<rect x="275" y="112" width="160" height="21" fill="#009875"/>
+<text x="445" y="130" font-size="23" font-weight="700">16</text>
+<rect x="275" y="137" width="410" height="21" fill="#ff491b"/>
+<text x="695" y="155" font-size="23" font-weight="700">41</text>
+<text x="255" y="204" text-anchor="end" font-size="23">Corporate</text>
+<rect x="275" y="177" width="400" height="21" fill="#009875"/>
+<text x="685" y="195" font-size="23" font-weight="700">40</text>
+<rect x="275" y="202" width="570" height="21" fill="#ff491b"/>
+<text x="855" y="220" font-size="23" font-weight="700">57</text>
+<text x="255" y="269" text-anchor="end" font-size="23">Business</text>
+<rect x="275" y="242" width="140" height="21" fill="#009875"/>
+<text x="425" y="260" font-size="23" font-weight="700">14</text>
+<rect x="275" y="267" width="310" height="21" fill="#ff491b"/>
+<text x="595" y="285" font-size="23" font-weight="700">31</text>
+<text x="255" y="334" text-anchor="end" font-size="23">Social responsibility</text>
+<rect x="275" y="307" width="100" height="21" fill="#009875"/>
+<text x="385" y="325" font-size="23" font-weight="700">10</text>
+<rect x="275" y="332" width="390" height="21" fill="#ff491b"/>
+<text x="675" y="350" font-size="23" font-weight="700">39</text>
+<text x="255" y="399" text-anchor="end" font-size="23">HR and diversity</text>
+<rect x="275" y="372" width="270" height="21" fill="#009875"/>
+<text x="555" y="390" font-size="23" font-weight="700">27</text>
+<rect x="275" y="397" width="470" height="21" fill="#ff491b"/>
+<text x="755" y="415" font-size="23" font-weight="700">47</text>
+<text x="255" y="464" text-anchor="end" font-size="23">Sustainability</text>
+<rect x="275" y="437" width="120" height="21" fill="#009875"/>
+<text x="405" y="455" font-size="23" font-weight="700">12</text>
+<rect x="275" y="462" width="730" height="21" fill="#ff491b"/>
+<text x="1015" y="480" font-size="23" font-weight="700">73</text>
+<rect x="918" y="103" width="17" height="17" fill="#009875"/>
+<text x="946" y="119" font-size="21">Annual target</text>
+<rect x="918" y="139" width="17" height="17" fill="#ff491b"/>
+<text x="946" y="155" font-size="21">Jan–Jun 2022 results</text>
+</g></svg>
