@@ -159,3 +159,25 @@ footer { border-top: 1px solid var(--rule); }
 .advocacy-sample { width: min(100%, 20rem); margin-inline: auto; }
 
 .advocacy-sample video { display: block; width: 100%; height: auto; background: #141424; }
+
+/* Consistent editorial rows keep unlike media formats out of a stretched card grid. */
+.cases { align-items: start; gap: 1.25rem; }
+.case { align-self: start; }
+.case > p { flex: initial; }
+.case-with-media { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+.case-copy, .case-media { min-width: 0; }
+.case-copy > p { color: var(--quiet); text-wrap: pretty; }
+.case-with-media h4 { max-width: 25ch; }
+.case-media .work-sample, .case-media .campaign-gallery { margin-top: 0; }
+.case-media .work-sample + .work-sample { margin-top: 1.25rem; }
+.case-media .advocacy-sample { width: min(100%, 16rem); }
+.case-media .campaign-gallery { grid-template-columns: 1fr 1fr; gap: .9rem; }
+.case-media .sample-preview { aspect-ratio: 1; }
+.case-media .campaign-gallery figure:first-child .sample-preview { aspect-ratio: 1; }
+.case-media .facebook-window { align-self: center; }
+@media (max-width: 760px) {
+ .case-with-media { grid-template-columns: 1fr; gap: 1.5rem; }
+ .case-media { width: 100%; }
+ .case-media .advocacy-sample { width: min(100%, 18rem); }
+}
+@media (max-width: 400px) { .case-media .campaign-gallery { grid-template-columns: 1fr; } }
