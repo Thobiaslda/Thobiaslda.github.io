@@ -203,3 +203,9 @@ footer { border-top: 1px solid var(--rule); }
 .case > details { margin-top: 1.15rem; }
 
 .scope-note { margin-top: .75rem; font-size: .82rem; color: var(--quiet); }
+
+.cases.stable-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); columns: auto; align-items: start; gap: 1.25rem; }
+.case-column { min-width: 0; }
+.case-heading .eyebrow { color: var(--quiet); font-size: .65rem; letter-spacing: .07em; }
+.case-heading > span { color: var(--quiet); font-size: .68rem; }
+.proof-focus > div + div strong { color: var(--quiet); }
