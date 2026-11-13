@@ -209,3 +209,6 @@ footer { border-top: 1px solid var(--rule); }
 .case-heading .eyebrow { color: var(--quiet); font-size: .65rem; letter-spacing: .07em; }
 .case-heading > span { color: var(--quiet); font-size: .68rem; }
 .proof-focus > div + div strong { color: var(--quiet); }
+
+.case > .case-date { margin: .65rem 0 0; color: var(--quiet); font-size: .75rem; line-height: 1.4; }
+.case > .case-date + h4 { margin-top: .4rem; }
